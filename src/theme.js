@@ -25,7 +25,7 @@ const theme = createMuiTheme({
     },
     typography: {
         fontFamily: [
-          '"Open Sans"',          
+          'Open Sans',          
           'sans-serif',
         ].join(','),
         h3: {

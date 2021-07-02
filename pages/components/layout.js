@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     content: {
         maxWidth: 1440,
         margin: '0 auto',
-        padding: '20px 20px;',
+        padding: theme.spacing(2),
         '& h5':{
           fontSize:'1.125rem'
         },
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
       padding: 30,
 
       [theme.breakpoints.down('sm')]: {
-        padding: "8px 12px",
+        padding: "8px 16px",
       },
 
       "& p": {
