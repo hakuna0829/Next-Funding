@@ -5,10 +5,14 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import axios from 'axios';
+import CurrencyFormat from 'react-currency-format';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     
+  },
+  title: {
+    fontWeight:700,
   },
   image_part: {
     width: "100%"
@@ -30,14 +34,15 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 5px'
   },
   btn_link: {
-    marginBottom: 10,
+    margin: '8px 0',
 
     '& a' : {
       width: '100%'
     },
     
     '& button': {
-      width: '100%'
+      width: '100%',
+      fontSize: '1rem'
     }
   },
   special_text: {
@@ -48,9 +53,11 @@ const useStyles = makeStyles((theme) => ({
   totalcompanies: {
     textTransform: 'none'
   },
-  title: {
-    fontWeight: 'bold'
+  claimBtn:{
+    fontSize:'1rem',
+    minWidth:200
   }
+  
 }));
 
 const links = [
@@ -80,59 +87,48 @@ function Home() {
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={7}>
-          <Typography variant="h4" gutterBottom color={'primary'}>
+          <Typography variant="h5" className={classes.title} gutterBottom color={'primary'}>
             Welcome to Funding Index
           </Typography>
-          <Box mb={3} pb={3}>
+          <Box mb={2} >
             <Typography variant="body1">
-              For too long no-one in the UK has known the national picture of investment demand from our greatest companies. No longer.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacus nunc, commodo at est ut, aliquam laoreet nunc.
             </Typography>
           </Box>
-          <Box mb={3} pb={3} style={{ textAlign: 'center' }}>
-            {/* <Typography variant="body1" mb={2} className={classes.special_text}>
-              "Finally, you can access up-to-date information on unquoted UK-wided company funding needs in one place..."
-            </Typography> */}
-            <Button variant="outlined" color="primary" href={'/claim-your-startup'}>
+          <Box mb={2} style={{ textAlign: 'center' }}>
+            <Button variant="outlined" color="primary" className={classes.claimBtn} href={'/claim-your-startup'}>
               Claim your business
             </Button>
           </Box>
-          <Box mb={3} pb={3}>
+          <Box >
             <Typography variant="body1" mb={2}>
-              To fill that critical need, FUNDING INDEX offers a definitive and easy-to-search one-stop portal of UK funding needs.
+              Sed vehicula luctus porta. Aenean ultrices pulvinar quam eu aliquet. Etiam urna velit, malesuada ac imperdiet id, maximus in nisl. Praesent ipsum neque, commodo at erat vitae, fermentum semper velit.
             </Typography>
           </Box>                    
-        </Grid>
-        {/* <Grid item xs={12} md={3}>
-          {
-            links.map((item, index) => (
-              <div key={index} className={classes.btn_link}>
-                <Button variant="outlined" color="primary" href={item.link}>
-                  {item.text}
-                </Button>
-              </div>
-            ))
-          }
-        </Grid> */}
-        <Grid item xs={12} md={2}>
-          <Typography variant="body1" gutterBottom color={'primary'} className={classes.title}>
+        </Grid>        
+        <Grid item xs={12} md={7}>
+          <Typography variant="body2" gutterBottom color={'primary'} className={classes.title}>
             Funding Sought Today
           </Typography>
-          <div className={classes.btn_link}>
-            <Button variant="contained" color="primary">
-              £{totalSought}
-            </Button>
-          </div>
-          <div className={classes.btn_link}>
-            <Button variant="contained" color="primary" className={classes.totalcompanies}>
-              {totalCompanies} Companies
-            </Button>
-          </div>
+          <Grid container spacing={2} className={classes.btn_link}>
+            <Grid item xs={6} >
+              <Button variant="contained" color="primary">
+                <CurrencyFormat value={totalSought} displayType={'text'} thousandSeparator={true} prefix={'£'} />
+              </Button>
+            </Grid>
+            <Grid item xs={6} >
+              <Button variant="contained" color="primary" className={classes.totalcompanies}>
+                {totalCompanies} Companies
+              </Button>
+            </Grid>
+          </Grid>
+
         </Grid>
       </Grid>
       <Grid item>
-        <Box mt={3} >
+        <Box mt={2} >
           <Typography variant="body1" mb={2}>
-            To fill that critical need, FUNDING INDEX offers a definitive and easy-to-search one-stop portal of UK funding needs.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacus nunc, commodo at est ut, aliquam laoreet nunc.
           </Typography>
         </Box>        
       </Grid>
