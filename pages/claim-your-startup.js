@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSession, getSession } from 'next-auth/client';
+import { useRouter } from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
@@ -7,36 +8,57 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
   custom_input: {
-    width: '100%'
+    width: '100%',
+    '& .MuiOutlinedInput-input':{
+      padding: 14
+    }
   },
   search_btn: {
-    height: 56,
-    width: '100%'
+    // height: 56,
+    width: '100%',
+    '& .MuiButton-label':{
+      padding: 3,
+      fontSize: '1rem'
+    }
   },
   company_item: {
+    border: 'solid #808080 1px',
+    borderRadius: 8,
+    padding:'2px 5px',
+    marginBottom:8,
     '& .title': {
-      color: '#275ca0'
+      color: '#275ca0',
+      fontSize: 16,
+      fontWeight: 600
     },
 
     '& .description': {
-      color: '#747b7e',
-      fontSize: 15,
-      fontWeight: 600
+      color: '#808080',
+      fontSize: 14,
+      fontWeight: 400
     },
 
     '& .address': {
-      fontSize: 15,
+      fontSize: 14,
       fontWeight: 600
     }
+  },
+  disable:{
+    opacity:0.4
+  },
+  title:{
+    fontWeight: 700
   }
 }));
 
 const ClaimStartUp = () => {
   const classes = useStyles();
-  const [filteredCompanies, setFilteredCompanies] = useState([]);
+  const router = useRouter()
+  const [filteredCompanies, setFilteredCompanies] = useState();
   const [searchKey, setSearchKey] = useState('');
   const [inputError, setInputError] = useState(false);
   const [errorText, setErrorText] = useState('');
@@ -73,27 +95,35 @@ const ClaimStartUp = () => {
       });
   }
 
+  const handleCompany = (company) =>{
+    console.log('eeeee')
+    if(!company.company_number){
+      return;
+    }
+    router.replace("/companies/" + company.company_number);
+  }
+
   return (
     <div>
-      <Typography variant="h4" gutterBottom color={'primary'}>
+      <Typography variant="h5" className={classes.title} gutterBottom color={'primary'}>
         Claim your StartUp
       </Typography>
-      <Typography variant="body1" gutterBottom>
+      <Typography variant="body2" gutterBottom>
         Enter your company name or number and we'll look you up at Companies House.
       </Typography>
+      <Box mt={2}>
+        <Typography variant="h6" gutterBottom>
+          Company Name / Number
+        </Typography>
+      </Box>
       <Grid container spacing={3}>
-        <Grid item md={8}>
-          <Box mt={7} >
-            <Grid container spacing={3}>
-              <Grid item md={4}>
-                <Typography variant="h5" gutterBottom>
-                  Company Name
-                </Typography>
-              </Grid>
-              <Grid item md={6}>
+        <Grid item xs={12}>
+          <Box mt={2}>
+            <Grid container spacing={1}>
+              <Grid item xs={8}>
                 <TextField 
                   id="company-info" 
-                  label="Company Name" 
+                  label="" 
                   variant="outlined" 
                   className={classes.custom_input} 
                   value={searchKey} 
@@ -102,19 +132,19 @@ const ClaimStartUp = () => {
                   helperText={errorText}
                 />
               </Grid>
-              <Grid item md={2}>
+              <Grid item xs={4}>
                 <Button variant="contained" color="primary" className={classes.search_btn} onClick={handleSearch}>
                   Search
                 </Button>
               </Grid>
             </Grid>
           </Box>
-          <Box mt={3} borderTop={1} pt={3}>
+          <Box mt={2} pt={2}>
             {
               filteredCompanies && filteredCompanies.length > 0 ?
                 filteredCompanies.map((company, index) => (
-                  <Grid container spacing={3} key={index} className={classes.company_item}>
-                    <Grid item md={10}>
+                  <Box key={index} className={!company.company_number ? clsx(classes.disable, classes.company_item) : classes.company_item} onClick={() => handleCompany(company)}>
+                    
                       <Typography variant="h5" gutterBottom className="title">
                         {company.title}
                       </Typography>
@@ -124,19 +154,18 @@ const ClaimStartUp = () => {
                       <Typography variant="h5" gutterBottom className="address">
                         {company.address_snippet}
                       </Typography>
-                    </Grid>
-                    <Grid item md={2}>
-                      <Button variant="outlined" color="primary" className={classes.search_btn} href={"/companies/" + company.company_number} disabled={!company.company_number}>
+                    
+                      {/* <Button variant="outlined" color="primary" className={classes.search_btn} href={"/companies/" + company.company_number} disabled={!company.company_number}>
                         Claim
-                      </Button>
-                    </Grid>
-                  </Grid>
+                      </Button> */}
+                    
+                  </Box>
                 )) : 
-                <Grid container spacing={3} className={classes.company_item}>
+                <Box >
                   <Typography variant="h5" gutterBottom color='primary'>
                     There is no matched company
                   </Typography>
-                </Grid>
+                </Box>
             }            
           </Box>         
         </Grid>

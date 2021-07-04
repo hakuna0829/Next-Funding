@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 5px'
   },
   btn_link: {
-    margin: '8px 0',
+    // margin: '8px 0',
 
     '& a' : {
       width: '100%'
@@ -110,7 +110,7 @@ function Home() {
           <Typography variant="body2" gutterBottom color={'primary'} className={classes.title}>
             Funding Sought Today
           </Typography>
-          <Grid container spacing={2} className={classes.btn_link}>
+          <Grid container spacing={1} className={classes.btn_link}>
             <Grid item xs={6} >
               <Button variant="contained" color="primary">
                 <CurrencyFormat value={totalSought} displayType={'text'} thousandSeparator={true} prefix={'£'} />

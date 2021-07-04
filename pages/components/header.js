@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
       minWidth: 280,
 
       "& p": {
-          maxWidth: 220,
+          maxWidth: 235,
           margin: "0 auto",
           fontWeight: 700,
           textAlign: 'center',
@@ -98,6 +98,10 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 15,
       position: 'relative',
 
+      "& .MuiButton-label":{
+        fontSize:'1rem'
+      },
+
       "& a": {
           width: '100%',
           backgroundColor: 'white',
@@ -105,10 +109,11 @@ const useStyles = makeStyles((theme) => ({
       },
 
       "& svg": {
-          position: 'absolute',
-          top: 8,
-          right: 7,
-          color: theme.palette.primary.main
+        fontSize:'1.75rem !important',
+        position: 'absolute',
+        top: 5,
+        right: 7,
+        color: theme.palette.primary.main
       }
   },
   right_menu: {
@@ -143,6 +148,9 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.down('sm')]: {
           flexGrow: 0,
       },
+  },
+  iconButton:{
+    padding:'16px 12px'
   }
 }));
 
@@ -152,15 +160,6 @@ const linkGroups = [
   {title: 'Claim your Startup', link: '/claim-your-startup' }
 ]
 
-// const leftMenus = [
-//   {title: 'Companies', link: '/companies', icon: <SearchIcon />},
-//   {title: 'Investors', link: '/investors', icon: <AccountBalanceIcon />},
-//   {title: 'Research & Press', link: '/research-press', icon: <TrendingUpIcon />},
-//   {title: 'Resources', link: '/resources', icon: <DescriptionIcon />},
-//   {title: 'Sponsors', link: '/sponsors', icon: <ApartmentIcon />},
-//   {title: 'Contact Us', link: '/contact-us', icon: <EmailIcon />},
-// ];
-
 const leftMenus = [
   {title: 'Claim my business', link: '/claim-your-startup', icon: <SearchIcon />},
   {title: 'View my businesses', link: '/investors', icon: <AccountBalanceIcon />},
@@ -169,7 +168,7 @@ const leftMenus = [
 
 const unAuthedRightMenus = [
   {title: 'Register / Profile', link: '/profile', icon: <AccountCircle />},
-  {title: 'Sign In', link: '/login', icon: <ExitToAppIcon />},
+  {title: 'Sign In / Sign Out', link: '/login', icon: <ExitToAppIcon />},
   {title: 'Privacy and Security', link: '/privacy-security', icon: <LockIcon />},
 ];
 
@@ -238,7 +237,7 @@ const Header = () => {
         {
           showLeftMenu &&
             <div className={classes.left_menu} ref={leftMenuRef}>
-              <p>Worrying about your mortgage so you don't have to.</p>
+              <p>Painting the National Picture of Company Funding Needs</p>
               {
                 leftMenus.map(item => (
                   <div className={classes.menu_item} key={item.title}>
@@ -278,6 +277,7 @@ const Header = () => {
           color={showRightMenu ? 'primary' : 'secondary'}
           onClick={() => toggleRightMenu()}
           ref={rightMenuExceptional}
+          className={classes.iconButton}
         >
           {
             session ? <Avatar alt="Remy Sharp" src={user.image} /> : <AccountCircle fontSize={'large'}/> 

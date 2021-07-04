@@ -7,7 +7,13 @@ import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    '& .MuiButton-label':{
+      fontSize: '1rem'
+    }
 
+  },
+  title:{
+    fontWeight: 700
   }
 }));
 
@@ -18,22 +24,22 @@ function Login() {
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={10}>
-          <Typography variant="h4" gutterBottom color={'primary'}>
-            Sign in to view your Business
+          <Typography variant="h5" className={classes.title} gutterBottom color={'primary'}>
+            Sign In to claim your business
           </Typography>
-          <Box mb={3} pb={3}>
-            <Typography variant="body1">
+          <Box my={2} >
+            <Typography variant="body2">
               Please sign-in using your Google Accounts confirm who you are
             </Typography>
           </Box>
-          <Box mb={3} pb={3} style={{ textAlign: 'center' }}>
+          <Box my={3} textAlign="center">
             <Button variant="outlined" color="primary" href={'/api/auth/signin'}>
               Sign in with Google
             </Button>
           </Box>
-          <Box mb={3} pb={3} style={{ textAlign: 'center' }}>
-            <Button variant="outlined" color="primary" href={'/'}>
-              Cancel
+          <Box my={3} width="250px" textAlign="center" margin="0 auto">
+            <Button variant="outlined" color="text" href={'/'}>
+              Back to Company Search
             </Button>
           </Box>
         </Grid>
